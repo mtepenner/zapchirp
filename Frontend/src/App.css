@@ -1,0 +1,250 @@
+/*
+We followed a tutorial from PedroTech, https://www.youtube.com/watch?v=NU-HfZY3ATQ
+
+Pedro Machado. "React Socket.io Chat App." Version 1.0, Aug 26, 2021. 
+Source Code. Available at: https://github.com/machadop1407/react-socketio-chat-app.
+*/
+
+/* Main application container */
+.App {
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  background: #d5e76e; /* Background color */
+  color: #212121; /* Text color */
+  font-family: "Open Sans", sans-serif; /* Font family */
+  display: flex; /* Use flex layout */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  text-align: center; /* Center text alignment */
+}
+
+/* Global styles for the body */
+body {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+/* Importing Google Fonts */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
+
+/* Join chat container */
+.joinChatContainer {
+  display: flex; /* Use flexbox layout */
+  flex-direction: column; /* Arrange items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text alignment */
+}
+
+/* Title in join chat container */
+.joinChatContainer h3 {
+  font-size: 2.5rem; /* Font size */
+  margin-bottom: 1rem; /* Margin below the title */
+}
+
+/* Input fields in join chat container */
+.joinChatContainer input {
+  width: 210px; /* Width of input fields */
+  height: 40px; /* Height of input fields */
+  margin: 7px; /* Margin around input fields */
+  border: 2px solid #143fb6; /* Border color and width */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px; /* Padding inside input fields */
+  font-size: 16px; /* Font size */
+}
+
+/* Join button in join chat container */
+.joinChatContainer button {
+  width: 225px; /* Width of the button */
+  height: 50px; /* Height of the button */
+  margin: 7px; /* Margin around the button */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px; /* Padding inside the button */
+  font-size: 16px; /* Font size */
+  background: #143ec7; /* Background color */
+  color: #fff; /* Text color */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Hover effect for the join button */
+.joinChatContainer button:hover {
+  background: #757d2e; /* Background color on hover */
+}
+
+/* Chat window container */
+.chat-window {
+  width: 300px; /* Width of the chat window */
+  height: 420px; /* Height of the chat window */
+  display: flex; /* Use flex layout */
+  flex-direction: column; /* Arrange items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+/* Remove margin from paragraphs inside chat window */
+.chat-window p {
+  margin: 0;
+}
+
+/* Chat header */
+.chat-window .chat-header {
+  width: 100%; /* Full width */
+  height: 45px; /* Height of the header */
+  border-radius: 6px; /* Rounded corners */
+  background: #263238; /* Background color */
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Text inside chat header */
+.chat-window .chat-header p {
+  display: block; /* Display as block */
+  color: #fff; /* Text color */
+  font-weight: 700; /* Bold text */
+  line-height: 45px; /* Line height */
+}
+
+/* Chat body */
+.chat-window .chat-body {
+  width: 100%; /* Full width */
+  height: calc(450px - (45px + 70px)); /* Height calculation */
+  border: 1px solid #263238; /* Border color and width */
+  background: #fff; /* Background color */
+  display: flex; /* Use flexbox layout */
+  flex-direction: column; /* Arrange items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+/* Message container inside chat body */
+.chat-window .chat-body .message-container {
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow-y: scroll; /* Vertical scroll */
+  overflow-x: hidden; /* Hide horizontal scroll */
+}
+
+/* Hide scrollbar in message container */
+.chat-window .chat-body .message-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Message inside chat body */
+.chat-window .chat-body .message {
+  height: auto; /* Automatic height */
+  padding: 10px; /* Padding inside the message */
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center items horizontally */
+}
+
+/* Message content */
+.chat-window .chat-body .message .message-content {
+  width: auto; /* Automatic width */
+  height: auto; /* Automatic height */
+  min-height: 40px; /* Minimum height */
+  max-width: 120px; /* Maximum width */
+  background-color: #0026ff; /* Background color */
+  border-radius: 5px; /* Rounded corners */
+  color: white; /* Text color */
+  display: flex; /* Use flexbox layout */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  padding: 5px; /* Padding inside message */
+  overflow-wrap: break-word; /* Break words to fit */
+  word-break: break-word; /* Break words to fit */
+}
+
+/* Style for messages sent by the user */
+#you {
+  justify-content: flex-start; /* Align to the start */
+}
+
+/* Message content for user's messages */
+#you .message-content {
+  justify-content: flex-start; /* Align to the start */
+}
+
+/* Message metadata for user's messages */
+#you .message-meta {
+  justify-content: flex-start; /* Align to the start */
+  margin-left: 5px; /* Margin on the left */
+}
+
+/* Style for messages sent by others */
+#other {
+  justify-content: flex-end; /* Align to the end */
+}
+
+/* Message content for others' messages */
+#other .message-content {
+  justify-content: flex-end; /* Align to the end */
+  background-color: rgb(180, 177, 0); /* Background color */
+}
+
+/* Message metadata for others' messages */
+#other .message-meta {
+  justify-content: flex-end; /* Align to the end */
+  margin-right: 5px; /* Margin on the right */
+}
+
+/* Author metadata inside messages */
+.message-meta #author {
+  margin-left: 10px; /* Margin on the left */
+  font-weight: bold; /* Bold text */
+}
+
+/* Metadata inside messages */
+.chat-window .chat-body .message .message-meta {
+  display: flex; /* Use flexbox layout */
+  font-size: 12px; /* Font size */
+}
+
+/* Chat footer */
+.chat-window .chat-footer {
+  width: 100%; /* Full width */
+  height: 40px; /* Height of the footer */
+  border: 1px solid #263238; /* Border color and width */
+  border-top: none; /* No top border */
+  display: flex; /* Use flexbox layout */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+}
+
+/* Input field inside chat footer */
+.chat-window .chat-footer input {
+  height: 100%; /* Full height */
+  flex: 85%; /* Flex ratio */
+  border: 0; /* No border */
+  padding: 0 0.7em; /* Padding inside the input */
+  font-size: 1em; /* Font size */
+  border-right: 1px dotted #607d8b; /* Right border */
+  outline: none; /* No outline */
+  font-family: "Open Sans", sans-serif; /* Font family */
+}
+
+/* Button inside chat footer */
+.chat-window .chat-footer button {
+  border: 0; /* No border */
+  display: grid; /* Use grid layout */
+  place-items: center; /* Center items */
+  cursor: pointer; /* Pointer cursor on hover */
+  flex: 15%; /* Flex ratio */
+  height: 100%; /* Full height */
+  background: transparent; /* Transparent background */
+  outline: none; /* No outline */
+  font-size: 25px; /* Font size */
+  color: lightgray; /* Text color */
+}
+
+/* Hover effect for button in chat footer */
+.chat-window .chat-footer button:hover {
+  color: #d3c759; /* Text color on hover */
+}
+
+/* Hidden elements */
+.hide {
+  opacity: 0 !important; /* Fully transparent */
+}
