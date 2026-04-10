@@ -56,14 +56,13 @@ function App() {
   };
 
   // Function to join a chat room
-  const joinRoom = () => {
-    if (username !== "" && room !== "") {
-      socket.emit("join_room", room); // Emit an event to join the room
-      setRoom(room);
-      setShowChat(true); // Show the chat component
-    }
-    
-  };
+  const joinRoom = (currentUsername, roomToJoin) => {
+  if (currentUsername !== "" && roomToJoin !== "") {
+    socket.emit("join_room", roomToJoin); 
+    setRoom(roomToJoin);
+    setShowChat(true); 
+  }
+};
 
   return (
     <Router>
@@ -82,11 +81,15 @@ function App() {
               <div className="joinChatContainer">
                 <Contacts
                   onSelectContact={(contact) => {
-                    setUsername(contact.name);
-                    setRoom(`${username}-${contact.name}`);
+                    // Do NOT setUsername to the contact's name here. 
+                    // Assuming 'username' is already set correctly when the user logs in.
+                    
+                    const newRoom = `${username}-${contact.name}`;
                     setSelectedContact(contact);
-                    joinRoom();
-                  }}
+                    
+                    // Pass the variables directly instead of waiting for state to update
+                    joinRoom(username, newRoom); 
+                }}
                   onCreateGroupChat={handleCreateGroupChat}
                   contacts={contacts}
                   addContact={setContacts}
