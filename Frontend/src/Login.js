@@ -3,18 +3,27 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Login({ setLoggedIn, setToken}) { // Passes two booleans
+
+function Login({ setLoggedIn, setToken, setUsername: setGlobalUsername }) { 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = async () => { // Function to handle user login
+    const handleLogin = async () => { 
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/login', { username, password });
+            // Using relative path because baseURL is set in App.js
+            const response = await axios.post('/api/auth/login', { username, password });
             setToken(response.data.token);
             setLoggedIn(true);
-            navigate('/Chat');
-        } catch (error) { // Something went wrong
+            
+            // Set the global username state in App.js so chat rooms generate correctly
+            if (setGlobalUsername) {
+                // Use the backend's returned username, fallback to local state if missing
+                setGlobalUsername(response.data.username || username); 
+            }
+
+            navigate('/chat'); // Changed to lowercase to match your App.js Route path
+        } catch (error) { 
             const errorMessage = error.response ? error.response.data.error : error.message;
             console.error('Login failed:', errorMessage);
             alert('Login failed: ' + errorMessage);
@@ -40,7 +49,7 @@ function Login({ setLoggedIn, setToken}) { // Passes two booleans
                 }}
             />
             <button onClick={handleLogin}>Login</button>
-            <p>Don't have an account? <button onClick={() => navigate('/Register')}>Register here to start zapping</button></p>
+            <p>Don't have an account? <button onClick={() => navigate('/register')}>Register here to start zapping</button></p>
         </div>
     );
 }
