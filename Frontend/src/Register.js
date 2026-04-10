@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-// Added setGlobalUsername prop here as well
 function Register({ setRegistered, setUsername: setGlobalUsername }) {
     const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState("");
