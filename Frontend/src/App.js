@@ -21,7 +21,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Re
 
 
 // Creating a socket connection to the server
-const socket = io.connect("http://localhost:3000");
+const socket = io.connect("http://localhost:3001");
 
 function App() {
   // State variables to manage username, room, and chat visibility
