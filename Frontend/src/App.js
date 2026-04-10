@@ -68,14 +68,14 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Login setLoggedIn={setLoggedIn} setToken={setToken} />} />
-          <Route path="/register" element={<Register setRegistered={() => setLoggedIn(true)} />} />
+          <Route path="/" element={<Login setLoggedIn={setLoggedIn} setToken={setToken} setUsername={setUsername} />} />
+          <Route path="/register" element={<Register setRegistered={() => setLoggedIn(true)} setUsername={setUsername} />} />
           <Route path="/chat" element={
             !loggedIn ? (
               showRegister ? (
-                <Register setRegistered={() => setShowRegister(false)} />
+                <Register setRegistered={() => setShowRegister(false)} setUsername={setUsername} />
               ) : (
-                <Login setLoggedIn={setLoggedIn} setToken={setToken} setShowRegister={setShowRegister} />
+                <Login setLoggedIn={setLoggedIn} setToken={setToken} setShowRegister={setShowRegister} setUsername={setUsername} />
               )
             ) : !showChat ? (
               <div className="joinChatContainer">
