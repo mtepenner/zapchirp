@@ -3,12 +3,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Register({ setRegistered }) {
+// Added setGlobalUsername prop here as well
+function Register({ setRegistered, setUsername: setGlobalUsername }) {
     const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState(""); // State for password
-    const [confirmPassword, setConfirmPassword] = useState(""); // State for confirm password
+    const [password, setPassword] = useState(""); 
+    const [confirmPassword, setConfirmPassword] = useState(""); 
     const [gender, setGender] = useState("");
     const navigate = useNavigate();
     
@@ -43,8 +44,15 @@ function Register({ setRegistered }) {
         }
 
         try {
-            await axios.post('http://localhost:3000/api/auth/signup', { fullName, username, email, password, gender });
-            setRegistered(true); // Notify parent that registration is complete
+            // Using relative path because baseURL is set in App.js
+            await axios.post('/api/auth/signup', { fullName, username, email, password, gender });
+            setRegistered(true); 
+
+            // Set global username in case your app bypasses Login after registration
+            if (setGlobalUsername) {
+                setGlobalUsername(username);
+            }
+
             alert('Registration successful! Please log in.');
             navigate('/');
         } catch (error) {
