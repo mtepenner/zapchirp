@@ -18,7 +18,7 @@ import Register from './Register'; // Importing User Registration component
 import CreateGroupChat from './CreateGroupChat'; // Importing CreateGroupChat component
 import axios from 'axios'; // Makes http requests from browser using GET, PUT, POST and DELETE
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // React Router to route our code
-
+axios.defaults.baseURL = 'http://localhost:3001';
 
 // Creating a socket connection to the server
 const socket = io.connect("http://localhost:3001");
