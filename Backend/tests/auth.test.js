@@ -1,13 +1,13 @@
 const request = require('supertest');
 const express = require('express');
-const authRoutes = require('../routes/auth.routes');
-const User = require('../models/user.model');
-const generateToken = require('../utils/generateToken');
+const authRoutes = require('../routes/auth.routes').default;
+const User = require('../models/user.model').default;
+const generateToken = require('../utils/generateToken').default;
 const bcrypt = require('bcryptjs');
 
 // Mock dependencies
 jest.mock('../models/user.model');
-jest.mock('../utils/generateToken', () => jest.fn());
+jest.mock('../utils/generateToken', () => ({ default: jest.fn(), __esModule: true }));
 jest.mock('bcryptjs');
 
 // Setup a mock Express app
